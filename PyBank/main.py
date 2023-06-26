@@ -44,12 +44,24 @@ with open(csvpath) as csvfile:
     print("Financial Analysis")
     print("-"*25)
 
-    print(f"Total months: {numMonths}")
+    print(f"Total Months: {numMonths}")
     print(f"Total: ${netTotal}")
     print(f"Average Change: ${round(totalChanges/(numMonths - 1),2)}")
     print(f"Greatest Increase in Profits: {greatestIncreaseDate} (${greatestIncrease})")
     print(f"Greatest Decrease in Profits: {greatestDecreaseDate} (${greatestDecrease})")
+
+    #Writes results to a file called bankAnalysis.txt
+    bankPath = os.path.join('analysis', 'bankAnalysis.txt')
+
+    with open(bankPath, "w") as file:
+        file.write("Financial Analysis\n")
+        file.write("-"*25 + "\n")
+        file.write(f"Total Months: {numMonths}\n")
+        file.write(f"Total: ${netTotal}\n")
+        file.write(f"Average Change: ${round(totalChanges/(numMonths - 1),2)}\n")
+        file.write(f"Greatest Increase in Profits: {greatestIncreaseDate} (${greatestIncrease})\n")
+        file.write(f"Greatest Decrease in Profits: {greatestDecreaseDate} (${greatestDecrease})\n")
     
-        
+    file.close()
 
     
