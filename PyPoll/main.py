@@ -1,27 +1,28 @@
-#Import Statements
+# Import Statements.
 import os
 import csv
 
+# Create file path for reading election_data.csv file.
 csvpath = os.path.join('Resources', 'election_data.csv')
 
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
 
-    #Convert data to nested list.
+    # Convert data to nested list.
     dataList = list(csvreader)
 
-    #Remove header row.
+    # Remove header row.
     dataList.remove(dataList[0])
 
-    #Number of votes.
+    # Number of votes.
     numVotes = len(dataList)
 
-    #Lists to hold election candidates results.
+    # Lists to hold election candidates results.
     candidates = []
     candidateVotes = []
     electionWinnerVotes = 0
 
-    #Loop which iterates through each row of the csv file.
+    # Loop which iterates through each row of the csv file.
     for i in range(numVotes):
         if (candidates.count(dataList[i][2]) == 0):
             candidates.append(dataList[i][2])
@@ -30,21 +31,20 @@ with open(csvpath) as csvfile:
             candidateVotes[candidates.index(dataList[i][2])] += 1
     
 
-
-
+    # Print election resluts.
     print("Election Results")
     print("-"*25)
     print(f"Total votes: {numVotes}")
     print("-"*25)
 
 
-    #Prints election results.
+    #Prints election results per candidate.
     for i in range(len(candidates)):
 
-        #Calculates the percent of total votes won by the candidate.
+        # Calculates the percent of total votes won by the candidate.
         percentOfVote = round((candidateVotes[i]/numVotes) * 100, 3)
 
-        #Checks for highest vote count
+        # Checks for highest vote count
         if (candidateVotes[i] > electionWinnerVotes):
             electionWinnerVotes = candidateVotes[i]
 
@@ -53,7 +53,7 @@ with open(csvpath) as csvfile:
     print("-"*25)
     print(f"Winner: {candidates[candidateVotes.index(electionWinnerVotes)]}")
 
-    #Code for writing results to text file called electionResults.txt
+    # Code for writing results to text file called electionResults.txt
     electionResultsPath = os.path.join('analysis','electionResults.txt')
 
     with open(electionResultsPath, "w") as file:
@@ -66,9 +66,10 @@ with open(csvpath) as csvfile:
             percentOfVote = round((candidateVotes[i]/numVotes) * 100, 3)
 
             file.write(f"{candidates[i]}: {percentOfVote}% ({candidateVotes[i]})\n")
+        
         file.write("-"*25 + "\n")
         file.write(f"Winner: {candidates[candidateVotes.index(electionWinnerVotes)]}\n")
         file.write("-"*25 + "\n")
 
-    file.close
+        file.close()
 
